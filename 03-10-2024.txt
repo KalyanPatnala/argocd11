@@ -1,0 +1,664 @@
+Today
+
+Teodor Juszczyk 8:42
+same error for eu-north-1
+
+Shiju Sekharan 8:42
+Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 8eb328df-f069-40fd-863a-0692998bd939, api error VcpuLimitExceeded: You have requested more vCPU capacity than your current vCPU limit of 8 allows for the instance bucket that the specified instance type belongs to. Please visit http://aws.amazon.com/contact-us/ec2-request to request an adjustment to this limit.
+
+Teodor Juszczyk 8:43
+t3.micro
+
+Adam Anderson 8:45
+dnf install ansible-core
+ansible --version
+
+Ali Khan (TDA - Network Security) 8:46
+How to resolve the issue:
+Check your current vCPU limits:
+Go to the AWS Service Quotas page in the AWS Management Console.
+Look for the EC2 vCPUs section, where you can view the current limits for different instance types in different regions.
+Request a vCPU limit increase:
+Visit the Service Quotas page: AWS EC2 Service Quotas.
+Select the relevant quota (e.g., "Running On-Demand All Standard (A, C, D, H, I, M, R, T, Z) instances").
+Click on Request quota increase, specify the new limit you need, and submit the request.
+Alternatively, you can request an adjustment directly through this link: AWS Contact Us for EC2 Limit Increase.
+Wait for approval:
+AWS typically processes these requests within a few hours to a few days, depending on your account history and the region.
+
+Paul Watson 8:47
+│ Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 1800194f-0d99-4d0d-8859-238283d74895, api error InvalidAMIID.NotFound: The image id '[ami-022ce6f32988af5fa]' does not exist
+│
+│   with aws_instance.vm1[0],
+│   on ec2.tf line 1, in resource "aws_instance" "vm1":
+│    1: resource "aws_instance" "vm1" {
+│
+
+Remi Bevan 8:47
+me too
+
+Nikita Chaurasiya 8:47
+Me too
+
+Ramesh SS KHARAT 8:50
+paris -- ami-0574a94188d1b84a1
+
+Paul Watson 8:53
+What was my creds for AWS? @Ramesh SS KHARAT
+
+John Eadie 8:54
+Hi Ramesh, sorry been out the past two days, as I don't have visual studio to use and have been using a linux machine before now, would i just greate the files and use the run commands?
+create*
+
+Ramesh SS KHARAT 8:56
+London-- ami-07d4917b6f95f5c2a
+
+Paul Watson 9:00
+╷
+│ Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 83b8924b-1f3f-476e-9b3e-2cbefdeffcbe, api error VcpuLimitExceeded: You have requested more vCPU capacity than your current vCPU limit of 8 allows for the instance bucket that the specified instance type belongs to. Please visit http://aws.amazon.com/contact-us/ec2-request to request an adjustment to this limit.
+│
+│   with aws_instance.vm1[1],
+│   on ec2.tf line 1, in resource "aws_instance" "vm1":
+│    1: resource "aws_instance" "vm1" {
+│
+
+Ramesh SS KHARAT 9:02
+6  ssh-keygen
+    7  ls
+    8  cd .ssh/
+    9  ls
+   10  cat id_rsa.pub
+
+Teodor Juszczyk 9:03
+[root@master ansible]# cat inventory/hosts.yml 
+---
+web:
+hosts:
+master:
+ansible_connection: local
+client1:
+ansible_host: 18.157.179.201
+ansible_user: root
+db:
+hosts:
+client2:
+ansible_host: 3.68.227.236
+ansible_user: root
+...
+damn, no formatting
+
+Adam Anderson 9:04
+# Backup then empty the ansible hosts file
+cd /etc/ansible
+cp hosts hosts.org
+echo "" > hosts
+
+Example hosts config;
+
+============
+[webserver]
+client1
+client2
+client [1:10] # you can specify a range like this
+
+[database]
+db[1:25]
+
+[email]
+192.168.1.[1:49]
+
+[network]
+vmg-core-[21:30]
+=============
+
+meraj khalid 9:05
+thanks Adam
+
+Adam Anderson 9:06
+# Add hosts into hosts file (local DNS)
+vi /etc/hosts
+
+*add below lines (change IPs to public client IPs)
+3.85.16.246		master
+54.164.102.144	client1
+54.89.182.118	client2
+use your won public IPs
+*own
+
+Teodor Juszczyk 9:06
+wouldn't setting ip details for machines be better in a config file?
+I know how to do that with the yaml file, not sure the INI allows that
+
+Adam Anderson 9:07
+I image you could add a directoive onto your terrafocr ec2.tf to write the public IPs into the amster hosts file post creation
+
+Adam Anderson 9:07
+*master
+something like that
+
+Paul Watson 9:08
+Could you ping my my aws passwd please
+
+Adam Anderson 9:08
+or in our use case - yeah - if the IP are static and know, it can be written at creation
+Probably Aws@12345678 @paul
+
+Teodor Juszczyk 9:09
+https://pastebin.com/MyXpT7hn
+
+Paul Watson 9:09
+tried that mate, no working
+
+Adam Anderson 9:09
+YOu not had this issue before? Tried a private tab?
+You are using the link specifically for Rameshs account? (ie, has the ID pre-populated?)
+Amazon Web Services
+this one?
+done
+
+Ewan Wait 9:11
+done
+
+Teodor Juszczyk 9:11
+done
+
+meraj khalid 9:11
+done
+
+Remi Bevan 9:12
+done
+
+Grant Ingram 9:12
+done
+
+Adamp 9:12
+done
+
+Rob Laws (Networks) 9:13
+done
+
+Adamp 9:13
+"ping": "pong"
+
+John Eadie 9:14
+not got the machines spun up yet, chromebook really struggling
+
+Teodor Juszczyk 9:16
+was that option really there all this time?!
+in the web ui?
+
+Teodor Juszczyk 9:16
+really?
+
+Teodor Juszczyk 9:17
+I feel betrayed
+
+Paul Watson 9:20
+whats the full commands please
+
+Ramesh SS KHARAT 9:21
+On Master:
+dnf install ansible-core
+
+Paul Watson 9:21
+all please
+
+Ramesh SS KHARAT 9:22
+ssh-keygen
+cd .ssh/
+cat id_rsa.pub
+
+Paul Watson 9:27
+cant login, its refusing my key
+
+Shiju Sekharan 9:32
+@Adam Anderson: if you have got all the steps handy, please can you post here. thanks
+
+Adam Anderson 9:35
+# Create a key gen on the master
+ssh-keygen
+
+
+
+Then on each client node
+
+# Switch to root user
+sudo -i
+
+# Copy the public key into the authorised keys file on each client
+cat ~/.ssh/id_rsa.pub (on master)
+vi .ssh/authorized_keys (on client)
+cat /etc/hosts
+3.85.16.246		master
+54.164.102.144	client1
+54.89.182.118	client2
+cat ~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub
+
+Ramesh SS KHARAT 9:39
+https://github.com/kharatramesh/misalpav/blob/main/ansible/installtiononubuntu
+
+Ramesh SS KHARAT 9:49
+[root@master ansible]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+91.91.91.10     master
+91.91.91.22     client1
+91.91.91.63     client2
+[root@master ansible]# cat /etc/ansible/hosts
+[web]
+master
+client1
+[db]
+client2
+
+You 10:46
+yes
+
+Teodor Juszczyk 10:46
+back
+
+Remi Bevan 10:47
+back
+
+Adam Anderson 10:47
+back
+
+meraj khalid 10:47
+back
+
+Shiju Sekharan 10:47
+back
+
+Adamp 10:48
+back
+
+Adam Anderson 11:00
+done
+
+Teodor Juszczyk 11:00
+done
+
+Ramesh SS KHARAT 11:01
+https://github.com/kharatramesh/misalpav/blob/main/ansible/variables
+
+Teodor Juszczyk 11:16
+done
+
+Ewan Wait 11:17
+done
+
+Veera Gowri Sankar Medisetti 11:20
+done
+
+wan.tse@natwest.com 11:20
+done
+
+Rob Laws (Networks) 11:24
+done
+
+Jamie Drummond 11:32
+and database to db
+But google ones not working
+
+Ramesh SS KHARAT 11:56
+https://github.com/kharatramesh/misalpav/blob/main/ansible/variables
+
+Adam Anderson 11:57
+done
+
+Ewan Wait 11:57
+done
+
+Teodor Juszczyk 11:57
+doen
+
+Veera Gowri Sankar Medisetti 11:57
+done
+
+wan.tse@natwest.com 11:58
+Done
+
+Grant Ingram 11:58
+👍
+
+Rob Laws (Networks) 11:59
+done
+
+You 11:59
+done
+
+Adamp 12:02
+done
+
+Remi Bevan 12:02
+done
+
+Adamp 12:10
+I vote for a new username example
+
+Teodor Juszczyk 12:26
+done
+
+Ewan Wait 12:26
+done
+
+Adam Anderson 12:29
+it only needs to be this;
+---
+- name: adding users with loop
+  hosts: webserver
+  tasks:
+  - name: adding user {{ item }}
+    user:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - user1
+      - user2
+      - user3
+...
+as an example
+
+Adamp 12:39
+# variables.yaml
+users:
+  - username: alice
+    uid: 1001
+    groups: sudo
+  - username: bob
+    uid: 1002
+    groups: users
+  - username: charlie
+    uid: 1003
+    groups: users
+---
+- name: Create users on web hosts
+  hosts: web_hosts
+  become: yes  # Elevate to root privileges
+  vars_files:
+    - variables.yaml
+
+  tasks:
+    - name: Ensure users are created
+      user:
+        name: "{{ item.username }}"
+        uid: "{{ item.uid }}"
+        groups: "{{ item.groups }}"
+        state: present
+        shell: /bin/bash
+      loop: "{{ users }}"
+
+Ramesh SS KHARAT 12:39
+[root@master ansible]# cat users.yaml
+---
+- name: adding users
+  hosts: web
+  vars_files:
+  - "variables.yaml"
+  tasks:
+  - name: create user {{price['name'] }}
+    user:
+      name: "{{price['name']}}"
+      uid: "{{price.uid}}"
+      shell: "{{price.shell}}"
+  - name: adding user {{ item }}
+    user:
+      name : "{{ item }}"
+      state: present
+    loop:
+      - A1
+      - A2
+      - A3
+  - name: create user
+    user:
+      name: "{{ item.name }}"
+      uid: "{{ item.uid }}"
+      shell: "{{ item.shell }}"
+      state: present
+    loop:
+      - "{{ price }}"
+      - "{{ user2 }}"
+      - "{{ user3 }}"
+      - "{{ user4 }}"
+[root@master ansible]# cat variables.yaml
+price:
+  name: user11
+  uid: 30011
+  shell: /bin/bash
+user2:
+  name: user22
+  uid: 30022
+  shell: /bin/sh
+user3:
+  name: user333
+  uid: 300332
+  shell: /bin/ksh
+user4:
+  name: user343
+  uid: 300342
+  shell: /bin/bash
+
+Teodor Juszczyk 12:51
+done - now for a break :D
+
+
+wan.tse@natwest.com 13:03
+Done
+
+You 13:32
+done
+
+Adamp 13:39
+done
+@Amrik Gharial mute
+
+Veera Gowri Sankar Medisetti 13:41
+done
+
+Adam Anderson 13:48
+back
+
+You 13:48
+back
+
+Ewan Wait 13:48
+back
+
+wan.tse@natwest.com 13:48
+back
+
+Remi Bevan 13:48
+back
+
+Shiju Sekharan 13:48
+back
+
+Zoe McCorquodale 13:48
+Back 
+
+Teodor Juszczyk 13:48
+back
+
+Sagar Shivnani 13:53
+back
+
+Ewan Wait 13:53
+done
+
+Grant Ingram 13:53
+done
+
+wan.tse@natwest.com 13:53
+Done
+
+Remi Bevan 13:53
+done
+
+Teodor Juszczyk 13:54
+I got it done a bit differently
+looping from a var_file directly
+
+Teodor Juszczyk 14:01
+https://pastebin.com/WtPe2g4X
+
+Rob Laws (Networks) 14:06
+I managed by changing variables.yaml to a list of dicts rather than a dict of dicts, then you can loop through each item
+
+Teodor Juszczyk 14:15
+can you show your solution please?
+
+Rob Laws (Networks) 14:15
+[root@master playbooks]# cat variables.yaml
+---
+users:
+  - name: user11
+    uid: 30011
+    shell: /bin/bash
+  - name: user22
+    uid: 30022
+    shell: /bin/sh
+  - name: user333
+    uid: 300332
+    shell: /bin/ksh
+  - name: user343
+    uid: 300342
+    shell: /bin/bash
+
+...
+[root@master playbooks]# cat users.yaml
+---
+- name: adding users with loop
+  hosts: web
+  vars_files:
+    - variables.yaml
+  tasks:
+  - name: create user
+    user:
+      name: "{{ item.name }}"
+      uid: "{{ item.uid }}"
+      shell: "{{ item.shell }}"
+      state: present
+    loop: "{{ users }}"
+
+...
+
+Teodor Juszczyk 14:16
+oooohhh also nice
+
+Rob Laws (Networks) 14:16
+I think it has essentially done the same as yours but I converted to list in the variables file
+
+Teodor Juszczyk 14:17
+but looks like my dict is bigger then.
+
+Teodor Juszczyk 14:17
+I'm so sorry, I had to write that.
+
+Rob Laws (Networks) 14:17
+never showing my small dict again
+
+Adamp 14:20
+haha
+
+Teodor Juszczyk 14:38
+just found this in docs, when using dict of dicts, you can instead of
+loop: "{{ users | dict2items }}"
+use:
+with_dict: "{{ users }}"
+and it will work exactly the same
+
+
+Ewan Wait 15:45
+back
+
+Adamp 15:45
+back
+
+You 15:45
+back
+
+Remi Bevan 15:45
+back
+
+Rob Laws (Networks) 15:46
+back
+
+Zoe McCorquodale 15:46
+Back 
+
+Teodor Juszczyk 15:46
+back
+
+wan.tse@natwest.com 15:46
+back
+
+Shiju Sekharan 15:46
+back
+
+Adam Anderson 15:46
+back
+
+Adam Anderson 16:06
+you cant hear us
+
+You 16:06
+Ramesh can you hear us ?
+
+meraj khalid 16:06
+you are not hearing us?
+
+Adam Anderson 16:06
+if gather_facts is false - why would it get any facts
+?
+
+meraj khalid 16:06
+you cannot hear us
+
+You 16:06
+can you hear us ?
+
+Teodor Juszczyk 16:06
+Can you hear us?
+
+Adamp 16:06
+@Ramesh SS KHARAT
+
+Teodor Juszczyk 16:11
+Tell me next euro million numbers and which stonks to buy
+
+Ewan Wait 16:11
+if only :)
+
+Ramesh SS KHARAT 16:24
+[root@master ansible]# cat  facts.yaml
+---
+- name: learning ansible facts
+  hosts: db
+  gather_facts: true
+  tasks:
+  - name: learning facts
+    debug:
+      msg:
+      - hello ansible , what is architecture "{{ansible_facts.architecture}}"
+      - tell me ip address "{{ansible_facts.all_ipv4_addresses}}"
+      - tell me date "{{ansible_facts.date_time.date}}"
+      - tell me gateway ip "{{ansible_facts.default_ipv4.gateway}}"
+  - name: more about facts
+    shell: "cat /etc/os-release"
+    register: samosa
+  - name: more about facts
+    shell: "uname -a"
+    register: vadapav
+  - name: print information
+    debug:
+      msg:
+      - Let me share some OS information which is captured by earlier task "{{samosa.stdout}}"
+      - Let me share some kernel information which is captured by earlier task "{{vadapav.stdout}}"
+
+Ramesh SS KHARAT 16:48
+https://github.com/kharatramesh/misalpav/blob/main/ansible/condtionals.yaml
+
+Ramesh SS KHARAT 16:49
+systemctl status httpd
+
