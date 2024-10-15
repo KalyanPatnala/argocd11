@@ -4,13 +4,13 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: app1
-  name: s1
+    app: team4-web1
+  name: frontend-svc
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: app1
+    app: team4-web1
   type: NodePort
