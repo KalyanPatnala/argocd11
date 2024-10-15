@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: app1
-  name: app1
+    app: team4-web1
+  name: team4-web1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: app1
+      app: team4-web1
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: app1
+        app: team4-web1
     spec:
       containers:
-      - image: kharatramesh/vadapavimages:biryani
-        name: httpd
+      - image: shujali/team4:webv1
+        name: team4-web1
