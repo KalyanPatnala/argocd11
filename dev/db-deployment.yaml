@@ -21,4 +21,7 @@ spec:
       - image: shujali/team4:db1
         name: database
         resources: {}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123"
 status: {}
